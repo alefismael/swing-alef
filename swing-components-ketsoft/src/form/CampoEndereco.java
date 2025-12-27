@@ -1,6 +1,6 @@
 package form;
 
-import button.BaseButton;
+import base.BaseButton;
 import dto.EnderecoDTO;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
