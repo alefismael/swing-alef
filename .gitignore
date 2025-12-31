@@ -28,10 +28,12 @@ hs_err_pid*
 replay_pid*
 
 # NetBeans
-/swing-alef/nbproject/
-/swing-alef/dist/
-/swing-alef/build/
-
+/swing-alef/nbproject
+/swing-alef/dist
+/swing-alef/build
+swing-alef/nbproject
+swing-alef/dist
+swing-alef/build
 # Maven
 /swing-alef/target/
 
@@ -39,3 +41,4 @@ replay_pid*
 .idea/
 *.iml
 .vscode/
+swing-alef/target/

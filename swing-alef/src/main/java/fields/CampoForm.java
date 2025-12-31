@@ -5,6 +5,7 @@ import base.Validavel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,12 +27,12 @@ import javax.swing.border.Border;
  * @author alefi
  */
 public abstract class CampoForm<T> extends JPanel implements Validavel {
-    
+
     protected BaseLabel label;
     protected JLabel labelErro;
     protected boolean obrigatorio = false;
     protected String mensagemErro;
-    
+
     // Bordas para estados
     private static final Border BORDA_NORMAL = BorderFactory.createEmptyBorder(0, 0, 0, 0);
     private static final Border BORDA_ERRO = BorderFactory.createCompoundBorder(
@@ -41,11 +42,12 @@ public abstract class CampoForm<T> extends JPanel implements Validavel {
     private static final Color COR_ERRO = new Color(239, 68, 68);
 
     public CampoForm(String titulo) {
-        super(new BorderLayout(4, 2));
+        super();
+        setLayout(new BorderLayout(4, 2));
 
         label = new BaseLabel(titulo);
         add(label, BorderLayout.NORTH);
-        
+
         // Label de erro (inicialmente invisível)
         labelErro = new JLabel(" ");
         labelErro.setForeground(COR_ERRO);
@@ -53,6 +55,8 @@ public abstract class CampoForm<T> extends JPanel implements Validavel {
         labelErro.setVisible(false);
         add(labelErro, BorderLayout.SOUTH);
     }
+
+    // ...existing code...
     
     @Override
     public Dimension getPreferredSize() {

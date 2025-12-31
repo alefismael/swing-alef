@@ -62,6 +62,7 @@ public class BaseLoginDialog extends JDialog {
      */
     public BaseLoginDialog(Frame owner) {
         this(owner, "Login");
+        inicializar();
     }
     
     /**
@@ -165,7 +166,6 @@ public class BaseLoginDialog extends JDialog {
         campoSenha.setValue("");
         lblMensagem.setText(mensagemInicial);
         lblMensagem.setForeground(UIManager.getColor("Label.disabledForeground"));
-        
         setVisible(true);
         return loginRealizado;
     }

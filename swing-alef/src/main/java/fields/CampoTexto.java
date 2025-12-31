@@ -43,7 +43,11 @@ public class CampoTexto extends CampoForm<String> {
     private void inicializar() {
         field = new BaseTextField();
         add(field, java.awt.BorderLayout.CENTER);
-        
+
+        // Força tamanho mínimo para garantir visibilidade em BoxLayout
+        setMinimumSize(new java.awt.Dimension(300, 60));
+        field.setMinimumSize(new java.awt.Dimension(300, 28));
+
         // Listener para validação em tempo real (opcional)
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override

@@ -29,6 +29,6 @@ public class BaseTextField extends JTextField{
         setOpaque(true);
         
         // Tamanho visual consistente
-        setPreferredSize(new Dimension(0, 28));
+        setPreferredSize(new Dimension(300, 28)); // Corrige largura para 300
     }  
 }

@@ -13,7 +13,7 @@ package base;
  *     private String mensagemErro;
  *     
  *     public boolean isValid() {
- *         if (obrigatorio && getValue().isEmpty()) {
+ *         if (obrigatorio &amp;&amp; getValue().isEmpty()) {
  *             mensagemErro = "Campo obrigatório";
  *             return false;
  *         }
