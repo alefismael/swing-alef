@@ -7,11 +7,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import table.BaseTable;
 
@@ -36,6 +38,7 @@ public class BaseCrudPanel extends BasePanel {
     private final BaseLabel labelTitulo;
     private final BaseLabel labelStatus;
     private final JScrollPane scrollPane;
+    private JPanel containerControles; // Referência para atualizar borda
     
     public BaseCrudPanel(String titulo) {
         super();
@@ -68,13 +71,9 @@ public class BaseCrudPanel extends BasePanel {
         });
         
         // Container de controles com borda - responsivo
-        JPanel containerControles = new JPanel(new BorderLayout(8, 0));
-        containerControles.setOpaque(true);
-        containerControles.setBackground(new java.awt.Color(250, 250, 250));
-        containerControles.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 215, 215), 1),
-            javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12)
-        ));
+        containerControles = new JPanel(new BorderLayout(8, 0));
+        containerControles.setOpaque(false);
+        atualizarBordas();
         
         // Filtro à esquerda
         JPanel pnlFiltro = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
@@ -91,7 +90,7 @@ public class BaseCrudPanel extends BasePanel {
         // === TABELA ===
         tabela = new BaseTable();
         scrollPane = new JScrollPane(tabela);
-        scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 215, 215), 1));
+        scrollPane.setBorder(null);
         
         // Status bar (rodapé)
         labelStatus = new BaseLabel("0 registros");
@@ -256,5 +255,24 @@ public class BaseCrudPanel extends BasePanel {
      */
     public void definirTitulo(String titulo) {
         labelTitulo.setText(titulo);
+    }
+    
+    /**
+     * Atualiza as bordas com as cores do tema atual.
+     */
+    private void atualizarBordas() {
+        if (containerControles != null) {
+            containerControles.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(1, 0, 1, 0, UIManager.getColor("Separator.foreground")),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12)
+            ));
+        }
+    }
+    
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        // Atualiza bordas quando o tema muda
+        atualizarBordas();
     }
 }

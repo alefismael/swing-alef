@@ -28,12 +28,12 @@ hs_err_pid*
 replay_pid*
 
 # NetBeans
-/swing-components-ketsoft/nbproject/
-/swing-components-ketsoft/dist/
-/swing-components-ketsoft/build/
+/swing-alef/nbproject/
+/swing-alef/dist/
+/swing-alef/build/
 
 # Maven
-/swing-components-ketsoft/target/
+/swing-alef/target/
 
 # IDE
 .idea/

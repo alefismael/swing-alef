@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <!-- Run Project (F6) -->
+    <action>
+        <actionName>run</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>exec:java</goal>
+        </goals>
+        <properties>
+            <exec.mainClass>example.ExemploAplicativoClientes</exec.mainClass>
+        </properties>
+    </action>
+    
+    <!-- Debug Project (Ctrl+F5) -->
+    <action>
+        <actionName>debug</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>exec:exec</goal>
+        </goals>
+        <properties>
+            <exec.executable>java</exec.executable>
+            <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath example.ExemploAplicativoClientes</exec.args>
+            <jpda.listen>true</jpda.listen>
+        </properties>
+    </action>
+    
+    <!-- Clean and Build (Shift+F11) -->
+    <action>
+        <actionName>build</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>clean</goal>
+            <goal>install</goal>
+        </goals>
+        <properties>
+            <skipTests>true</skipTests>
+        </properties>
+    </action>
+    
+    <!-- Rebuild -->
+    <action>
+        <actionName>rebuild</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>clean</goal>
+            <goal>install</goal>
+        </goals>
+        <properties>
+            <skipTests>true</skipTests>
+        </properties>
+    </action>
+</actions>

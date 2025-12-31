@@ -1,7 +1,7 @@
 package util;
 
-import components.CampoTexto;
-import components.CampoNumeroSpinner;
+import fields.CampoTexto;
+import fields.CampoNumeroSpinner;
 import java.util.function.Function;
 import java.util.function.BiConsumer;
 

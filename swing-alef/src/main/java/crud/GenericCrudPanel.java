@@ -2,9 +2,9 @@ package crud;
 
 import base.BaseCrudPanel;
 import base.BaseFormularioDialog;
+import ui.DialogUtil;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.JOptionPane;
 
 /**
  * Painel CRUD genérico em pacote dedicado.
@@ -45,13 +45,7 @@ public abstract class GenericCrudPanel extends BaseCrudPanel {
             return;
         }
         int linha = obterLinhaSelecionada();
-        int confirmar = JOptionPane.showConfirmDialog(
-                this,
-                "Deseja realmente deletar o registro selecionado?",
-                "Confirmar exclusão",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (confirmar != JOptionPane.YES_OPTION) {
+        if (!DialogUtil.confirmarExclusao(this, "Registro")) {
             return;
         }
         boolean ok = deletarSelecionado(linha, dados);

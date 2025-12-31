@@ -41,7 +41,8 @@ public class BaseTable extends JTable{
         // Adicionar margem nas células
         setIntercellSpacing(new java.awt.Dimension(8, 4));
         setShowGrid(true);
-        setGridColor(new java.awt.Color(230, 230, 230));
+        // Usa cor do tema para a grid
+        setGridColor(javax.swing.UIManager.getColor("Table.gridColor"));
     }
     
     /**
@@ -165,5 +166,15 @@ public class BaseTable extends JTable{
         }
         String regex = "(?i)" + java.util.regex.Pattern.quote(texto.trim());
         sorter.setRowFilter(RowFilter.regexFilter(regex));
+    }
+    
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        // Atualiza cor da grid quando o tema muda
+        java.awt.Color gridColor = javax.swing.UIManager.getColor("Table.gridColor");
+        if (gridColor != null) {
+            setGridColor(gridColor);
+        }
     }
 }

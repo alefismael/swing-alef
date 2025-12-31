@@ -47,10 +47,15 @@ mvn javadoc:javadoc
 
 - ✅ **Componentes Base**: Sem conflitos com temas como FlatLaf
 - ✅ **BaseFrame**: Frame principal com suporte a navegação por abas
+- ✅ **TabbedDocumentPane**: Sistema de abas fecháveis com indicador de modificações
+- ✅ **TabbedFrame**: Frame com abas de documentos integrado
+- ✅ **BaseLoginDialog**: Diálogo de login reutilizável com autenticação ⭐ NOVO
 - ✅ **PainelCRUD**: Painel pronto para operações de CRUD
 - ✅ **BaseFormularioDialog**: Diálogos modais para entrada de dados
 - ✅ **Campos de Formulário em Português**: CampoTexto, CampoNumero, CampoCep, CampoSenha
 - ✅ **Tabelas com Suporte a CRUD**: BaseTable com métodos úteis
+- ✅ **DialogUtil**: Utilitário para diálogos em português ⭐ NOVO
+- ✅ **ImageUtil**: Utilitário para carregar imagens ⭐ NOVO
 - ✅ **Layout Automático**: GridBagLayout para componentes responsivos
 
 ## 📦 Estrutura de Packages
@@ -64,6 +69,9 @@ base/
   ├── BaseTextField.java        - Campo de texto base
   ├── BaseSpinner.java          - Spinner para números
   ├── BaseFrame.java            - Frame principal com suporte F11
+  ├── BaseLoginDialog.java      - Diálogo de login reutilizável ⭐ NOVO
+  ├── TabbedDocumentPane.java   - Abas fecháveis com indicador
+  ├── TabbedFrame.java          - Frame com abas de documentos
   ├── BaseCrudPanel.java        - Painel pronto para CRUD
   ├── BaseFormularioDialog.java - Diálogo para formulários
   └── BaseNavigationBar.java    - Barra de navegação
@@ -72,7 +80,12 @@ crud/
   ├── GenericCrudPanel.java     - Painel CRUD genérico com hooks
   ├── CrudDialogFactory.java    - Factory para criação de diálogos
   ├── CrudTableModel.java       - Model genérico para tabelas
-  └── CrudDialogPresets.java    - Presets para diálogos CRUD
+  ├── CrudDialogPresets.java    - Presets para diálogos CRUD
+  ├── CrudPanel.java            - Painel CRUD com interfaces ⭐ NOVO
+  └── api/                      - Interfaces genéricas ⭐ NOVO
+      ├── CrudOperations.java   - Interface para operações CRUD
+      ├── CrudFormFactory.java  - Factory para formulários
+      └── TableRowMapper.java   - Mapeador entidade-tabela
 
 components/
   ├── CampoForm.java            - Classe abstrata base para campos
@@ -83,26 +96,120 @@ components/
   ├── CampoCep.java             - Campo específico para CEP (99999-999)
   ├── CampoTelefone.java        - Campo de telefone formatado
   ├── CampoData.java            - Campo de data (dd/MM/yyyy)
-  └── CampoEndereco.java        - Campo composto para endereço
+  ├── CampoEndereco.java        - Campo composto para endereço
+  ├── CampoComboBox.java        - ComboBox com label ⭐ NOVO
+  ├── CampoCheckBox.java        - CheckBox estilizado ⭐ NOVO
+  ├── CampoRadioGroup.java      - Grupo de RadioButtons ⭐ NOVO
+  ├── CampoMoeda.java           - Campo monetário (R$ 1.234,56) ⭐ NOVO
+  ├── CampoCpf.java             - CPF com máscara e validação ⭐ NOVO
+  └── CampoCnpj.java            - CNPJ com máscara e validação ⭐ NOVO
 
 table/
   └── BaseTable.java            - Tabela base com CRUD
 
 ui/
-  ├── Toast.java                - Notificações toast
-  └── LoadingOverlay.java       - Overlay de carregamento
+  ├── LoadingOverlay.java       - Overlay de carregamento
+  ├── DialogUtil.java           - Diálogos em português ⭐ NOVO
+  └── PainelTemas.java          - Seletor de temas FlatLaf
 
 util/
   ├── ValidationUtil.java       - Utilitários de validação
+  ├── DataBinder.java           - Binding de dados DTO->Campo
+  └── ImageUtil.java            - Carregar imagens do classpath ⭐ NOVO
   └── DataBinder.java           - Binding de dados DTO->Campo
 
 example/
-  └── ExemploAplicativoClientes.java - Exemplo completo de uso
+  ├── ExemploAplicativoClientes.java - Exemplo completo de uso
+  └── ExemploTabbedDocument.java     - Exemplo de abas fecháveis ⭐ NOVO
 ```
 
 ## 🚀 Como Usar
 
-### 1. Aplicação Básica com BaseFrame
+### 1. Aplicação com Abas Fecháveis (TabbedFrame)
+
+```java
+import base.TabbedFrame;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+
+public class MinhaAplicacao {
+    public static void main(String[] args) {
+        // Usar FlatLaf (opcional, mas recomendado)
+        try {
+            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            TabbedFrame frame = new TabbedFrame("Minha Aplicação");
+
+            // Adicionar abas
+            frame.adicionarAba("Clientes", new ClientePanel());
+            frame.adicionarAba("Produtos", new ProdutoPanel());
+
+            // Aba fixa (não fechável)
+            frame.adicionarAbaFixa("Home", null, new HomePanel());
+
+            frame.setVisible(true);
+        });
+    }
+}
+```
+
+**Recursos do TabbedDocumentPane:**
+
+- ✅ Botão X para fechar cada aba
+- ✅ Indicador de modificações (• no título)
+- ✅ Menu de contexto (botão direito): Fechar, Fechar Outras, Fechar Todas
+- ✅ Atalhos: `Ctrl+W` (fechar), `Ctrl+Tab` (próxima), `Ctrl+Shift+Tab` (anterior)
+- ✅ Confirmação ao fechar com alterações não salvas
+- ✅ Abas fixas que não podem ser fechadas
+
+```java
+// Marcar aba como modificada (mostra •)
+frame.getTabbedPane().marcarModificado(componente, true);
+
+// Fechar programaticamente
+frame.getTabbedPane().fecharAbaAtual();
+
+// Callback quando aba é fechada
+frame.getTabbedPane().setOnTabClosed(comp -> {
+    System.out.println("Aba fechada: " + comp);
+});Login com BaseLoginDialog ⭐ NOVO
+
+```java
+import base.BaseLoginDialog;
+
+// Criar diálogo de login
+BaseLoginDialog login = new BaseLoginDialog(null, "Login do Sistema");
+
+// Configurar autenticador
+login.setAutenticador((usuario, senha) -> {
+    // Sua lógica de autenticação (ex: banco de dados)
+    return usuario.equals("admin") && senha.equals("123");
+});
+
+// Mostrar e verificar resultado
+if (login.mostrar()) {
+    // Login bem sucedido
+    System.out.println("Usuário: " + login.getUsuario());
+    new MainFrame().setVisible(true);
+} else {
+    // Login cancelado
+    System.exit(0);
+}
+```
+
+**Recursos do BaseLoginDialog:**
+
+- ✅ Campos CampoTexto e CampoSenha integrados
+- ✅ Autenticador configurável via `BiFunction<String, String, Boolean>`
+- ✅ Atalhos: `Enter` (entrar), `ESC` (cancelar)
+- ✅ Mensagens de erro integradas
+- ✅ Labels e textos customizáveis
+
+### 3. Aplicação Básica com BaseFrame
 
 ```java
 import base.BaseFrame;
@@ -126,7 +233,7 @@ public class MinhaAplicacao {
 }
 ```
 
-### 2. Criar um Painel CRUD
+### 4. Criar um Painel CRUD
 
 ```java
 import base.PainelCRUD;
@@ -150,7 +257,7 @@ frame.adicionarPainel("Clientes", painel);
 frame.exibirPainel("Clientes");
 ```
 
-### 3. Criar um Formulário com Diálogo
+### 5. Criar um Formulário com Diálogo
 
 ```java
 import base.BaseFormularioDialog;
@@ -175,7 +282,7 @@ dialog.mostrarDialogo(() -> {
 });
 ```
 
-### 4. Criar um Formulário Customizado
+### 6. Criar um Formulário Customizado
 
 ```java
 import base.BaseFormPanel;
@@ -315,6 +422,64 @@ campo.setValueFromString("25/12/2025");
 CampoEndereco endereco = new CampoEndereco();
 // Campos compostos: CEP, logradouro, número, bairro, cidade, país
 // Inclui botão "Buscar CEP" para integração futura com API
+```
+
+### Utilitários
+
+#### DialogUtil ⭐ NOVO
+
+Diálogos em português compatíveis com FlatLaf:
+
+```java
+import ui.DialogUtil;
+
+// Confirmação simples (Sim/Não)
+if (DialogUtil.confirmar(parent, "Deseja continuar?")) {
+    // Usuário clicou Sim
+}
+
+// Confirmação de exclusão
+if (DialogUtil.confirmarExclusao(parent, "cliente")) {
+    clienteRepository.excluir(cliente);
+}
+
+// Confirmação com Cancelar (Sim/Não/Cancelar)
+int opcao = DialogUtil.confirmarComCancelar(parent, "Salvar alterações?");
+// 0 = Sim, 1 = Não, 2 = Cancelar
+
+// Mensagens informativas
+DialogUtil.info(parent, "Operação concluída!");
+DialogUtil.aviso(parent, "Campo obrigatório não preenchido");
+DialogUtil.erro(parent, "Falha ao conectar no banco");
+
+// Input de texto
+String nome = DialogUtil.input(parent, "Digite o nome:");
+
+// Seleção de opções
+String[] opcoes = {"Opção A", "Opção B", "Opção C"};
+String escolha = DialogUtil.selecionar(parent, "Escolha:", opcoes);
+```
+
+#### ImageUtil ⭐ NOVO
+
+Utilitário para carregar imagens do classpath:
+
+```java
+import util.ImageUtil;
+
+// Carregar imagem do classpath (pasta resources)
+Image imagem = ImageUtil.carregarImagem("/icone.png");
+
+// Carregar como ImageIcon
+ImageIcon icone = ImageUtil.carregarIcone("/logo.png");
+
+// Redimensionar mantendo proporção
+Image redimensionada = ImageUtil.redimensionarProporcional(imagem, 64, 64);
+
+// Verificar se imagem existe
+if (ImageUtil.existe("/foto.jpg")) {
+    // ...
+}
 ```
 
 ## 🎨 Temas e Customização

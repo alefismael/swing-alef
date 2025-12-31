@@ -27,6 +27,7 @@ public class BaseFrame extends JFrame {
     
     private void configurar() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }

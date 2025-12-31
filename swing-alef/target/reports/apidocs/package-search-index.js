@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"base"},{"l":"components"},{"l":"crud"},{"l":"dto"},{"l":"example"},{"l":"table"},{"l":"ui"},{"l":"util"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"base"},{"l":"crud"},{"l":"crud.api"},{"l":"dto"},{"l":"example"},{"l":"fields"},{"l":"table"},{"l":"ui"},{"l":"util"}];updateSearchResults();

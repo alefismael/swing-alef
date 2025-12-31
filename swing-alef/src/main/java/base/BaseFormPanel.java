@@ -4,13 +4,13 @@
  */
 package base;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  * Painel base para construção de formulários com GridBagLayout.
@@ -25,19 +25,19 @@ import javax.swing.JComponent;
  * 
  * @author alefi
  */
-public class BaseFormPanel extends BasePanel{
+public class BaseFormPanel extends JPanel {
 
     protected GridBagConstraints gbc;
     protected List<JComponent> componentes;
 
     public BaseFormPanel() {
         setLayout(new GridBagLayout());
-        setOpaque(false);
 
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 20, 10, 20);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridx = 0;
         gbc.gridy = 0;
         
@@ -49,8 +49,7 @@ public class BaseFormPanel extends BasePanel{
      * 
      * @param campo JComponent do campo
      */
-    protected void adicionarCampo(JComponent campo) {
-        campo.setMaximumSize(new Dimension(Integer.MAX_VALUE, campo.getPreferredSize().height));
+    public void adicionarCampo(JComponent campo) {
         add(campo, gbc);
         componentes.add(campo);
         gbc.gridy++;
@@ -63,7 +62,6 @@ public class BaseFormPanel extends BasePanel{
      * @param acao ação ao clicar
      */
     public void adicionarBotao(String texto, Runnable acao) {
-        // Espaço entre campos e botões
         gbc.insets = new Insets(20, 20, 10, 20);
         
         BaseButton botao = new BaseButton(texto);
@@ -72,7 +70,6 @@ public class BaseFormPanel extends BasePanel{
         componentes.add(botao);
         gbc.gridy++;
         
-        // Restaurar espaçamento normal
         gbc.insets = new Insets(10, 20, 10, 20);
     }
     

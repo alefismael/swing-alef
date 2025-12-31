@@ -35,12 +35,11 @@
     </properties>
 
     <dependencies>
-        <!-- FlatLaf - Look and Feel moderno para Swing (opcional, mas recomendado) -->
+        <!-- FlatLaf - Look and Feel moderno para Swing -->
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
             <version>${flatlaf.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- FlatLaf Extras - Ícones SVG e componentes extras -->
@@ -48,7 +47,14 @@
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-extras</artifactId>
             <version>${flatlaf.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- FlatLaf IntelliJ Themes - Temas extras do IntelliJ -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>${flatlaf.version}</version>
             <optional>true</optional>
         </dependency>
 

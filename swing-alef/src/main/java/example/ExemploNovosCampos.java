@@ -2,12 +2,12 @@ package example;
 
 import base.BaseFrame;
 import base.BaseFormPanel;
-import components.CampoTexto;
-import components.CampoEmail;
-import components.CampoSenha;
-import components.CampoTelefone;
-import components.CampoData;
-import components.CampoNumeroSpinner;
+import fields.CampoTexto;
+import fields.CampoEmail;
+import fields.CampoSenha;
+import fields.CampoTelefone;
+import fields.CampoData;
+import fields.CampoNumeroSpinner;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -74,7 +74,7 @@ public class ExemploNovosCampos {
                 System.out.println("=== DADOS DO FORMULÁRIO ===");
                 System.out.println("Nome: " + nome.getValue());
                 System.out.println("E-mail: " + email.getValue());
-                System.out.println("E-mail válido? " + email.isValido());
+                System.out.println("E-mail válido? " + email.isValid());
                 System.out.println("Senha: " + senha.getValue());
                 System.out.println("Senha segura (min 8)? " + senha.isSegura(8));
                 System.out.println("Telefone Fixo: " + telefoneFixo.getValue());
@@ -84,13 +84,13 @@ public class ExemploNovosCampos {
                 System.out.println("===========================");
                 
                 // Validar todos os campos
-                boolean todosValidos = nome.isValido() 
-                    && email.isValido() 
+                boolean todosValidos = nome.isValid() 
+                    && email.isValid() 
                     && senha.isSegura(8)
-                    && telefoneFixo.isValido()
-                    && celular.isValido()
-                    && dataNascimento.isValido()
-                    && idade.isValido();
+                    && telefoneFixo.isValid()
+                    && celular.isValid()
+                    && dataNascimento.isValid()
+                    && idade.isValid();
                 
                 if (todosValidos) {
                     javax.swing.JOptionPane.showMessageDialog(frame, 
